@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeenHive Brain — AI Second Brain สำหรับธุรกิจไทย</title>
+  <meta name="description" content="WeenHive Brain คือระบบ AI Second Brain ที่ทำให้ธุรกิจของคุณจำทุกอย่าง ทำงานร่วมกับ Claude, ChatGPT และ MCP ได้ทันที" />
+  <meta property="og:title" content="WeenHive Brain — AI Second Brain สำหรับธุรกิจไทย" />
+  <meta property="og:description" content="ระบบความจำ AI ที่รู้จักธุรกิจของคุณ รองรับ LINE OA, Claude, ChatGPT ด้วย MCP standard" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sapphire: {
+              950: '#0a1628',
+              900: '#0f2040',
+              800: '#142d58',
+              700: '#1e3a5f',
+              600: '#2a4f80',
+              500: '#3b6ba8',
+              400: '#5b8fd4',
+              300: '#8ab4e8',
+              200: '#b8d4f5',
+              100: '#deeafe',
+              50:  '#f0f6ff',
+            },
+            accent: {
+              600: '#1d4ed8',
+              500: '#3b82f6',
+              400: '#60a5fa',
+              300: '#93c5fd',
+            }
+          },
+          fontFamily: {
+            sans: ['"IBM Plex Sans Thai"', '"Noto Sans Thai"', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: IBM Plex Sans Thai -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    /* Gradient backgrounds */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0a1628 0%, #1e3a5f 50%, #0f2040 100%);
+    }
+    .section-alt {
+      background: linear-gradient(180deg, #f0f6ff 0%, #ffffff 100%);
+    }
+
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    /* Animated gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 50%, #3b82f6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Pulse animation for live indicator */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+    .pulse-dot::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: #22c55e;
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    /* Feature card hover */
+    .feature-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(59,130,246,0.15);
+    }
+
+    /* Sticky nav blur */
+    .nav-blur {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    /* Accordion */
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .faq-content.open {
+      max-height: 300px;
+    }
+
+    /* Form focus styles */
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-gray-900 antialiased">
+
+  <!-- ===== NAV ===== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 nav-blur bg-sapphire-950/90 border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-accent-500 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .28 2.716-1.128 2.716H4.926c-1.408 0-2.128-1.716-1.128-2.716L5 14.5" />
+          </svg>
+        </div>
+        <span class="text-white font-semibold text-lg">WeenHive <span class="text-accent-400">Brain</span></span>
+      </a>
+
+      <!-- Desktop links -->
+      <div class="hidden md:flex items-center gap-6 text-sm text-sapphire-200">
+        <a href="#features" class="hover:text-white transition-colors">ฟีเจอร์</a>
+        <a href="#use-cases" class="hover:text-white transition-colors">ใช้งานได้กับอะไร</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">วิธีการทำงาน</a>
+        <a href="#pricing" class="hover:text-white transition-colors">ราคา</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+      </div>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-3">
+        <a href="#contact"
+           class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-500 hover:bg-accent-600 text-white text-sm font-medium transition-colors">
+          ลองใช้ฟรี
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-sapphire-200 hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-sapphire-950/95 border-t border-white/10 px-4 py-4">
+      <div class="flex flex-col gap-3 text-sm text-sapphire-200">
+        <a href="#features" class="py-2 hover:text-white transition-colors" onclick="closeMobileMenu()">ฟีเจอร์</a>
+        <a href="#use-cases" class="py-2 hover:text-white transition-colors" onclick="closeMobileMenu()">ใช้งานได้กับอะไร</a>
+        <a href="#how-it-works" class="py-2 hover:text-white transition-colors" onclick="closeMobileMenu()">วิธีการทำงาน</a>
+        <a href="#pricing" class="py-2 hover:text-white transition-colors" onclick="closeMobileMenu()">ราคา</a>
+        <a href="#contact" class="mt-2 w-full text-center py-2 rounded-lg bg-accent-500 text-white font-medium" onclick="closeMobileMenu()">ลองใช้ฟรี</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-gradient min-h-screen pt-16 flex items-center relative overflow-hidden">
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 left-0 w-96 h-96 bg-sapphire-600/20 rounded-full blur-3xl"></div>
+      <!-- Grid pattern -->
+      <svg class="absolute inset-0 w-full h-full opacity-5" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 lg:py-32 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Left: Copy -->
+        <div>
+          <!-- Live badge -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-xs text-sapphire-200 mb-6">
+            <span class="relative w-2 h-2 pulse-dot">
+              <span class="block w-2 h-2 rounded-full bg-green-400"></span>
+            </span>
+            รองรับ MCP · ใช้กับ Claude ได้ทันที
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+            ให้ AI
+            <span class="gradient-text"> จำทุกอย่าง</span>
+            <br />เพื่อธุรกิจของคุณ
+          </h1>
+
+          <p class="text-lg text-sapphire-200 mb-8 leading-relaxed max-w-xl">
+            WeenHive Brain คือ <strong class="text-white">AI Second Brain</strong> ที่เก็บความรู้, ความจำ, และบริบทของธุรกิจคุณ
+            ทำให้ AI ที่คุณใช้อยู่ — ไม่ว่าจะเป็น Claude หรือ ChatGPT — เข้าใจธุรกิจของคุณอย่างลึกซึ้ง
+          </p>
+
+          <!-- CTA buttons -->
+          <div class="flex flex-col sm:flex-row gap-3 mb-10">
+            <a href="#contact"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-semibold text-base transition-all hover:shadow-lg hover:shadow-accent-500/25">
+              เริ่มใช้งานฟรี 14 วัน
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a href="#how-it-works"
+               class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/20 text-sapphire-200 hover:text-white hover:border-white/40 font-medium text-base transition-all">
+              ดูวิธีการทำงาน
+            </a>
+          </div>
+
+          <!-- Social proof -->
+          <div class="flex items-center gap-4 text-sm text-sapphire-300">
+            <div class="flex -space-x-2">
+              <div class="w-8 h-8 rounded-full bg-accent-500 border-2 border-sapphire-900 flex items-center justify-center text-white text-xs font-bold">ส</div>
+              <div class="w-8 h-8 rounded-full bg-sapphire-600 border-2 border-sapphire-900 flex items-center justify-center text-white text-xs font-bold">ว</div>
+              <div class="w-8 h-8 rounded-full bg-accent-600 border-2 border-sapphire-900 flex items-center justify-center text-white text-xs font-bold">น</div>
+            </div>
+            <span>ธุรกิจไทยที่เริ่มใช้แล้ว · ไม่ต้องใช้เทคนิค</span>
+          </div>
+        </div>
+
+        <!-- Right: UI Mockup -->
+        <div class="lg:block">
+          <div class="glass-card rounded-2xl p-5 max-w-md mx-auto lg:ml-auto">
+            <!-- Mockup header -->
+            <div class="flex items-center gap-2 mb-4">
+              <div class="flex gap-1.5">
+                <div class="w-3 h-3 rounded-full bg-red-400/70"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400/70"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400/70"></div>
+              </div>
+              <div class="flex-1 bg-white/10 rounded-md px-3 py-1 text-xs text-sapphire-300 text-center">brain.weenhive.ai</div>
+            </div>
+
+            <!-- Memory recall demo -->
+            <div class="space-y-3">
+              <div class="text-xs text-sapphire-400 uppercase tracking-wider mb-2">Brain Recall</div>
+
+              <!-- Query input -->
+              <div class="bg-sapphire-900/80 rounded-xl p-3 border border-white/10">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-accent-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
+                  <span class="text-white/80 text-sm">ลูกค้า VIP ที่ชอบสินค้าแบบ X...</span>
+                </div>
+              </div>
+
+              <!-- Result cards -->
+              <div class="bg-sapphire-900/60 rounded-xl p-3 border border-accent-500/30">
+                <div class="flex items-start gap-2">
+                  <div class="w-2 h-2 rounded-full bg-accent-400 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <div class="text-white text-xs font-medium mb-0.5">คุณสมบัติ — VIP Preference</div>
+                    <div class="text-sapphire-300 text-xs leading-relaxed">ลูกค้ากลุ่มนี้ชอบสินค้า premium เน้นคุณภาพ ไม่สนราคา สั่งซ้ำทุก 2 สัปดาห์ ชอบ DM มากกว่าโทร</div>
+                    <div class="flex gap-2 mt-1.5">
+                      <span class="px-1.5 py-0.5 rounded bg-accent-500/20 text-accent-300 text-xs">vip</span>
+                      <span class="px-1.5 py-0.5 rounded bg-white/10 text-sapphire-300 text-xs">customer-segment</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-sapphire-900/60 rounded-xl p-3 border border-white/10">
+                <div class="flex items-start gap-2">
+                  <div class="w-2 h-2 rounded-full bg-sapphire-400 mt-1.5 flex-shrink-0"></div>
+                  <div>
+                    <div class="text-white text-xs font-medium mb-0.5">โปรโมชั่นที่ทำให้สำเร็จ</div>
+                    <div class="text-sapphire-300 text-xs leading-relaxed">Bundle offer "ซื้อ 3 แถม 1" ได้ผลดีกับกลุ่มนี้ Conversion 68% ในแคมเปญเดือน มี.ค.</div>
+                    <div class="flex gap-2 mt-1.5">
+                      <span class="px-1.5 py-0.5 rounded bg-white/10 text-sapphire-300 text-xs">promotion</span>
+                      <span class="px-1.5 py-0.5 rounded bg-white/10 text-sapphire-300 text-xs">campaign</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Status bar -->
+              <div class="flex items-center justify-between pt-2 border-t border-white/10">
+                <span class="text-xs text-sapphire-400">Semantic match: 94%</span>
+                <span class="text-xs text-green-400 flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                  Brain active
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATS STRIP ===== -->
+  <section class="bg-sapphire-900 border-y border-white/10 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl font-bold text-white mb-1">3.2M+</div>
+          <div class="text-sm text-sapphire-300">SME ไทยที่ใช้ LINE</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-1">MCP</div>
+          <div class="text-sm text-sapphire-300">มาตรฐาน AI สากล</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-accent-400 mb-1">&lt;200ms</div>
+          <div class="text-sm text-sapphire-300">ความเร็วค้นหาความจำ</div>
+        </div>
+        <div>
+          <div class="text-3xl font-bold text-white mb-1">24/7</div>
+          <div class="text-sm text-sapphire-300">Brain พร้อมใช้งานตลอด</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM ===== -->
+  <section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-sapphire-900 mb-4">AI ของคุณ <span class="text-red-500">ลืมทุกอย่าง</span> ทุกครั้งที่เปิดใหม่</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">ปัญหาที่ธุรกิจส่วนใหญ่เจอเมื่อใช้ AI ช่วยงาน</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="p-5 rounded-2xl border border-red-100 bg-red-50">
+          <div class="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">AI จำไม่ได้ว่าคุณเป็นใคร</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">ต้องอธิบายธุรกิจ, โปรดักต์, และลูกค้าใหม่ทุกครั้ง เสียเวลามาก</p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-orange-100 bg-orange-50">
+          <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">ข้อมูลกระจัดกระจาย</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">ความรู้ธุรกิจอยู่ใน Google Docs, LINE, Notion ไม่มีที่เดียวที่ AI เข้าถึงได้</p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-yellow-100 bg-yellow-50">
+          <div class="w-10 h-10 rounded-xl bg-yellow-100 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">ทีมไม่อัปเดต context</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">แต่ละคนใช้ AI แบบต่างกัน ไม่มี shared knowledge ที่ทั้งทีมอ้างอิงร่วมกันได้</p>
+        </div>
+
+        <div class="p-5 rounded-2xl border border-blue-100 bg-blue-50">
+          <div class="w-10 h-10 rounded-xl bg-blue-100 flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 mb-2">ต้องใช้ prompt ยาวเสมอ</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">ทุก session ต้องแปะ context ยาว ๆ เพื่อให้ AI เข้าใจ ไม่มีทางลัด</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section id="features" class="py-20 section-alt">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="inline-block px-3 py-1 rounded-full bg-accent-500/10 text-accent-600 text-xs font-semibold uppercase tracking-wider mb-4">ฟีเจอร์หลัก</div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-sapphire-900 mb-4">Brain ที่เรียนรู้และจำธุรกิจคุณ</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">ไม่ใช่แค่ database — แต่เป็นความทรงจำที่ค้นหาด้วย AI ได้ทันที</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Feature 1 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-accent-500/10 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .28 2.716-1.128 2.716H4.926c-1.408 0-2.128-1.716-1.128-2.716L5 14.5" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">Semantic Memory Recall</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">ค้นหาความจำด้วยความหมาย ไม่ใช่แค่ keyword — ถามว่า "ลูกค้าที่ชอบสินค้า premium" ก็หาเจอ แม้ไม่ตรงคำพอดี</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-green-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h3.375m0 0h3.375m-3.375 0V13.5m0 3.375v3.375M6 10.5h2.25a2.25 2.25 0 002.25-2.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v2.25A2.25 2.25 0 006 10.5zm0 9.75h2.25A2.25 2.25 0 0010.5 18v-2.25a2.25 2.25 0 00-2.25-2.25H6a2.25 2.25 0 00-2.25 2.25V18A2.25 2.25 0 006 20.25zm9.75-9.75H18a2.25 2.25 0 002.25-2.25V6A2.25 2.25 0 0018 3.75h-2.25A2.25 2.25 0 0013.5 6v2.25a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">MCP Standard</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">รองรับ Model Context Protocol — เชื่อมต่อกับ Claude, ChatGPT หรือ AI ทุกตัวที่รองรับ MCP โดยไม่ต้องเขียนโค้ดเพิ่ม</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">Task Board ในตัว</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">บริหาร to-do และ project tasks ด้วย Kanban board ที่ AI เชื่อมต่อโดยตรง สร้าง task จากการสนทนาได้เลย</p>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">Thai-First AI</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">ออกแบบมาสำหรับธุรกิจไทยโดยเฉพาะ รองรับภาษาไทยเต็มรูปแบบ ทั้ง UI และ semantic search</p>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-sapphire-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-sapphire-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">LINE OA Integration</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">เชื่อม Brain เข้ากับ LINE Official Account ให้ลูกค้าคุยกับ AI ที่รู้จักธุรกิจคุณผ่าน LINE ที่คุ้นเคย</p>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
+          <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900 text-lg mb-2">PDPA Compliant</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">ข้อมูลเก็บในไทย ระบบออกแบบตาม PDPA ลูกค้ามีสิทธิ์ลบข้อมูลของตัวเอง</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section id="how-it-works" class="py-20 bg-sapphire-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="inline-block px-3 py-1 rounded-full bg-accent-500/20 text-accent-300 text-xs font-semibold uppercase tracking-wider mb-4">วิธีการทำงาน</div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">ตั้งค่าใน 4 ขั้นตอน</h2>
+        <p class="text-lg text-sapphire-300 max-w-2xl mx-auto">ไม่ต้องมีความรู้ด้านโปรแกรม เริ่มได้ภายใน 30 นาที</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-500/20 border border-accent-500/30 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-accent-400">1</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">สมัครและสร้าง Brain</h3>
+          <p class="text-sm text-sapphire-300 leading-relaxed">สร้างบัญชีและ Brain workspace สำหรับธุรกิจของคุณ ใช้เวลาไม่ถึง 5 นาที</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-500/20 border border-accent-500/30 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-accent-400">2</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">เพิ่มความรู้ธุรกิจ</h3>
+          <p class="text-sm text-sapphire-300 leading-relaxed">บอก Brain เรื่องธุรกิจ, สินค้า, ลูกค้า, และ SOP ด้วยภาษาธรรมดา ไม่ต้องฟอร์แมตพิเศษ</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-500/20 border border-accent-500/30 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-accent-400">3</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">เชื่อม AI ที่คุณใช้</h3>
+          <p class="text-sm text-sapphire-300 leading-relaxed">Copy MCP endpoint URL ไปใส่ใน Claude, ChatGPT หรือ LINE OA bot — Brain พร้อมใช้ทันที</p>
+        </div>
+
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-500/20 border border-accent-500/30 flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl font-bold text-accent-400">4</span>
+          </div>
+          <h3 class="font-semibold text-white mb-2">AI รู้จักธุรกิจคุณ</h3>
+          <p class="text-sm text-sapphire-300 leading-relaxed">ตั้งแต่นี้ AI จะจำบริบทของธุรกิจคุณทุก session โดยไม่ต้องอธิบายซ้ำ</p>
+        </div>
+      </div>
+
+      <!-- MCP explanation box -->
+      <div class="mt-12 glass-card rounded-2xl p-6 max-w-3xl mx-auto">
+        <div class="flex items-start gap-4">
+          <div class="w-10 h-10 rounded-xl bg-accent-500/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-accent-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white mb-1">MCP คืออะไร?</h4>
+            <p class="text-sm text-sapphire-300 leading-relaxed">
+              <strong class="text-sapphire-100">Model Context Protocol (MCP)</strong> คือมาตรฐานเปิดจาก Anthropic ที่ให้ AI tools คุยกันได้ WeenHive Brain รองรับ MCP ทำให้ Claude, ChatGPT หรือ AI อื่น ๆ เข้าถึง Brain ของคุณได้โดยตรง
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== USE CASES ===== -->
+  <section id="use-cases" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="inline-block px-3 py-1 rounded-full bg-sapphire-100 text-sapphire-700 text-xs font-semibold uppercase tracking-wider mb-4">กรณีใช้งาน</div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-sapphire-900 mb-4">ธุรกิจแบบไหนใช้ได้บ้าง?</h2>
+        <p class="text-lg text-gray-500 max-w-2xl mx-auto">WeenHive Brain ใช้ได้กับทุกธุรกิจที่ต้องการให้ AI เข้าใจบริบทของตัวเอง</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🏪</div>
+          <h3 class="font-semibold text-gray-900 mb-2">ร้านค้าออนไลน์ / E-commerce</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">เก็บข้อมูลสินค้า, stock, นโยบายคืนสินค้า — AI ตอบลูกค้าได้ทุกเรื่องโดยไม่ต้องแปะ catalog ทุกครั้ง</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🏥</div>
+          <h3 class="font-semibold text-gray-900 mb-2">คลินิก / สุขภาพ</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">จัดการนัดหมาย, ข้อมูลบริการ, และ FAQ — ตอบคำถามผู้ป่วยได้ตลอด 24 ชั่วโมง</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🍽️</div>
+          <h3 class="font-semibold text-gray-900 mb-2">ร้านอาหาร / F&B</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">เมนู, โปรโมชั่น, นโยบายการจอง — Brain รู้ทุกอย่างเกี่ยวกับร้านคุณ</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🏢</div>
+          <h3 class="font-semibold text-gray-900 mb-2">ธุรกิจบริการ / Agency</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">เก็บ SOP, proposal templates, และ client briefs — ทีมทุกคน access ความรู้เดียวกันผ่าน AI</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🎓</div>
+          <h3 class="font-semibold text-gray-900 mb-2">สถาบันการศึกษา</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">FAQ หลักสูตร, ตาราง, ข้อมูลทุน — นักเรียนถามตอบได้ทันทีโดยไม่ต้องรอเจ้าหน้าที่</p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-gray-100 hover:border-accent-200 hover:shadow-md transition-all">
+          <div class="text-3xl mb-3">🚀</div>
+          <h3 class="font-semibold text-gray-900 mb-2">Startup / SaaS</h3>
+          <p class="text-sm text-gray-500 leading-relaxed">Product docs, roadmap, competitive intel — CEO ถาม AI ได้เลยโดยมี full context พร้อม</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" class="py-20 bg-sapphire-950">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="inline-block px-3 py-1 rounded-full bg-accent-500/20 text-accent-300 text-xs font-semibold uppercase tracking-wider mb-4">ราคา</div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">เริ่มต้นฟรี ขยายได้ตามธุรกิจ</h2>
+        <p class="text-lg text-sapphire-300 max-w-2xl mx-auto">ไม่มีค่าธรรมเนียมแอบแฝง ยกเลิกได้ตลอดเวลา</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Starter -->
+        <div class="glass-card rounded-2xl p-6">
+          <div class="mb-4">
+            <h3 class="font-semibold text-white text-lg mb-1">Starter</h3>
+            <p class="text-sapphire-400 text-sm">สำหรับธุรกิจเดี่ยวที่เพิ่งเริ่ม</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">฿990</span>
+            <span class="text-sapphire-400 text-sm">/เดือน</span>
+          </div>
+          <ul class="space-y-3 mb-6 text-sm">
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Memory 500 รายการ
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              1 MCP connection
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Task board
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Email support
+            </li>
+          </ul>
+          <a href="#contact" class="block text-center py-2.5 rounded-xl border border-white/20 text-sapphire-200 hover:text-white hover:border-white/40 text-sm font-medium transition-colors">
+            เริ่มต้น
+          </a>
+        </div>
+
+        <!-- Growth (Popular) -->
+        <div class="relative rounded-2xl p-6 bg-accent-500">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="px-3 py-1 rounded-full bg-yellow-400 text-yellow-900 text-xs font-bold">ยอดนิยม</span>
+          </div>
+          <div class="mb-4">
+            <h3 class="font-semibold text-white text-lg mb-1">Growth</h3>
+            <p class="text-blue-100 text-sm">สำหรับธุรกิจที่กำลังขยาย</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">฿2,490</span>
+            <span class="text-blue-100 text-sm">/เดือน</span>
+          </div>
+          <ul class="space-y-3 mb-6 text-sm">
+            <li class="flex items-center gap-2 text-white">
+              <svg class="w-4 h-4 text-yellow-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Memory ไม่จำกัด
+            </li>
+            <li class="flex items-center gap-2 text-white">
+              <svg class="w-4 h-4 text-yellow-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              3 MCP connections
+            </li>
+            <li class="flex items-center gap-2 text-white">
+              <svg class="w-4 h-4 text-yellow-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              LINE OA integration
+            </li>
+            <li class="flex items-center gap-2 text-white">
+              <svg class="w-4 h-4 text-yellow-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Team members 5 คน
+            </li>
+            <li class="flex items-center gap-2 text-white">
+              <svg class="w-4 h-4 text-yellow-300 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Priority support
+            </li>
+          </ul>
+          <a href="#contact" class="block text-center py-2.5 rounded-xl bg-white text-accent-600 hover:bg-blue-50 text-sm font-semibold transition-colors">
+            เลือก Growth
+          </a>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="glass-card rounded-2xl p-6">
+          <div class="mb-4">
+            <h3 class="font-semibold text-white text-lg mb-1">Enterprise</h3>
+            <p class="text-sapphire-400 text-sm">สำหรับองค์กรขนาดใหญ่</p>
+          </div>
+          <div class="mb-6">
+            <span class="text-4xl font-bold text-white">Custom</span>
+          </div>
+          <ul class="space-y-3 mb-6 text-sm">
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              ทุกอย่างใน Growth
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Dedicated instance
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              On-premise option
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              SLA 99.9% uptime
+            </li>
+            <li class="flex items-center gap-2 text-sapphire-200">
+              <svg class="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+              Custom integrations
+            </li>
+          </ul>
+          <a href="#contact" class="block text-center py-2.5 rounded-xl border border-white/20 text-sapphire-200 hover:text-white hover:border-white/40 text-sm font-medium transition-colors">
+            ติดต่อทีมขาย
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-sapphire-900 mb-4">คำถามที่พบบ่อย</h2>
+      </div>
+
+      <div class="space-y-3">
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">ต้องมีความรู้ด้านโปรแกรมไหมถึงจะใช้ได้?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">ไม่จำเป็นเลย WeenHive Brain ออกแบบมาสำหรับเจ้าของธุรกิจและทีมที่ไม่ใช่นักเทคนิค การตั้งค่าทำผ่าน UI ทั้งหมด สำหรับ MCP connection มีคู่มือ step-by-step ที่ copy-paste ได้เลย</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">ข้อมูลในฺ Brain ปลอดภัยไหม?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">ข้อมูลทั้งหมดเก็บ server ในไทย เข้ารหัส end-to-end ระบบออกแบบตาม PDPA เจ้าของธุรกิจเป็นเจ้าของข้อมูล 100% และสามารถลบได้ตลอดเวลา</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">ใช้กับ AI ตัวไหนได้บ้าง?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">ใช้ได้กับทุก AI ที่รองรับ MCP standard ปัจจุบันรองรับ Claude (Anthropic), ChatGPT (OpenAI), Cursor, Continue, และ LINE OA via webhook และมีแผนรองรับ Gemini เร็ว ๆ นี้</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">แตกต่างจาก Notion AI หรือ Google Docs + AI อย่างไร?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">Notion AI ทำงานภายใน Notion เท่านั้น WeenHive Brain เป็น universal memory ที่ AI ทุกตัวเข้าถึงได้ผ่าน MCP นอกจากนี้ยังมี semantic search ภาษาไทยและ LINE OA integration ที่เครื่องมือต่างประเทศไม่มี</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">ทดลองใช้ฟรีได้นานแค่ไหน?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">ทดลองใช้ฟรี 14 วัน ไม่ต้องใส่บัตรเครดิต หลังจากนั้นเลือก plan ที่เหมาะสม หรือหยุดใช้ได้เลยโดยไม่มีค่าใช้จ่าย</p>
+          </div>
+        </div>
+
+        <div class="faq-item border border-gray-200 rounded-xl overflow-hidden">
+          <button class="faq-trigger w-full text-left px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors" onclick="toggleFaq(this)">
+            <span class="font-medium text-gray-900 pr-4">Brain เรียนรู้ข้อมูลใหม่อัตโนมัติไหม?</span>
+            <svg class="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div class="faq-content px-5 pb-4">
+            <p class="text-gray-600 text-sm leading-relaxed">ได้ เมื่อ AI ของคุณค้นพบข้อมูลสำคัญในระหว่างการสนทนา สามารถสั่งให้ Brain จำไว้ได้ทันที นอกจากนี้ยังมี UI สำหรับเพิ่ม/แก้ไขความจำด้วยตัวเอง</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / CTA ===== -->
+  <section id="contact" class="py-20 hero-gradient">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Left: CTA copy -->
+        <div class="text-white">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4">พร้อมให้ AI รู้จักธุรกิจของคุณแล้วใช่ไหม?</h2>
+          <p class="text-sapphire-200 text-lg mb-8 leading-relaxed">ลองใช้ฟรี 14 วัน ไม่ต้องใส่บัตรเครดิต หรือติดต่อทีมเพื่อรับ demo สำหรับธุรกิจคุณ</p>
+
+          <!-- Contact options -->
+          <div class="space-y-4">
+            <a href="https://line.me/R/ti/p/@weenhive"
+               target="_blank" rel="noopener"
+               class="flex items-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+              <div class="w-10 h-10 rounded-xl bg-green-500 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.070 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-medium text-white">ติดต่อผ่าน LINE OA</div>
+                <div class="text-sapphire-300 text-sm">@weenhive — ตอบไวที่สุด</div>
+              </div>
+            </a>
+
+            <a href="mailto:hello@weenhive.ai"
+               class="flex items-center gap-3 p-4 glass-card rounded-xl hover:bg-white/10 transition-colors">
+              <div class="w-10 h-10 rounded-xl bg-accent-500 flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <div>
+                <div class="font-medium text-white">อีเมล</div>
+                <div class="text-sapphire-300 text-sm">hello@weenhive.ai</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-2xl">
+          <h3 class="font-bold text-sapphire-900 text-xl mb-2">ขอทดลองใช้งาน</h3>
+          <p class="text-gray-500 text-sm mb-6">กรอกข้อมูลด้านล่าง ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง</p>
+
+          <form id="contact-form" onsubmit="handleSubmit(event)" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="business_name">ชื่อธุรกิจ *</label>
+              <input type="text" id="business_name" name="business_name" required
+                     placeholder="ร้าน / บริษัท ของคุณ"
+                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_name">ชื่อผู้ติดต่อ *</label>
+              <input type="text" id="contact_name" name="contact_name" required
+                     placeholder="ชื่อ-นามสกุล"
+                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="contact_line">LINE ID หรืออีเมล *</label>
+              <input type="text" id="contact_line" name="contact_line" required
+                     placeholder="@lineid หรือ email@example.com"
+                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm transition-all" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="business_type">ประเภทธุรกิจ</label>
+              <select id="business_type" name="business_type"
+                      class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm bg-white transition-all">
+                <option value="">เลือกประเภท...</option>
+                <option value="ecommerce">ร้านค้าออนไลน์ / E-commerce</option>
+                <option value="clinic">คลินิก / สุขภาพ</option>
+                <option value="fnb">ร้านอาหาร / F&B</option>
+                <option value="service">ธุรกิจบริการ / Agency</option>
+                <option value="education">การศึกษา</option>
+                <option value="startup">Startup / SaaS</option>
+                <option value="other">อื่น ๆ</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1" for="message">สิ่งที่อยากได้จาก Brain (ไม่บังคับ)</label>
+              <textarea id="message" name="message" rows="3"
+                        placeholder="เช่น อยากให้ AI จำข้อมูลลูกค้า, อยากเชื่อม LINE OA..."
+                        class="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm resize-none transition-all"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full py-3 rounded-xl bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm transition-all hover:shadow-lg hover:shadow-accent-500/25">
+              ส่งข้อมูล — ทดลองฟรี 14 วัน
+            </button>
+
+            <p class="text-xs text-gray-400 text-center">ไม่ต้องใส่บัตรเครดิต · ยกเลิกได้ตลอดเวลา · ข้อมูลปลอดภัยตาม PDPA</p>
+          </form>
+
+          <!-- Success state (hidden by default) -->
+          <div id="form-success" class="hidden text-center py-8">
+            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">ส่งข้อมูลเรียบร้อยแล้ว!</h4>
+            <p class="text-gray-500 text-sm">ทีมงานจะติดต่อกลับภายใน 24 ชั่วโมง ขอบคุณที่สนใจ WeenHive Brain</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-sapphire-950 border-t border-white/10 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded-lg bg-accent-500 flex items-center justify-center">
+            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1 1 .28 2.716-1.128 2.716H4.926c-1.408 0-2.128-1.716-1.128-2.716L5 14.5" />
+            </svg>
+          </div>
+          <span class="text-white font-semibold">WeenHive Brain</span>
+        </div>
+
+        <div class="flex items-center gap-6 text-sm text-sapphire-400">
+          <span>© 2026 WeenHive</span>
+          <span>·</span>
+          <a href="mailto:hello@weenhive.ai" class="hover:text-sapphire-200 transition-colors">hello@weenhive.ai</a>
+          <span>·</span>
+          <span>ข้อมูลเก็บในไทย · PDPA</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Mobile menu toggle
+    document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    });
+
+    function closeMobileMenu() {
+      document.getElementById('mobile-menu').classList.add('hidden');
+    }
+
+    // FAQ accordion
+    function toggleFaq(trigger) {
+      const item = trigger.closest('.faq-item');
+      const content = item.querySelector('.faq-content');
+      const icon = trigger.querySelector('svg');
+      const isOpen = content.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-content').forEach(c => c.classList.remove('open'));
+      document.querySelectorAll('.faq-trigger svg').forEach(i => i.style.transform = '');
+
+      // Toggle clicked
+      if (!isOpen) {
+        content.classList.add('open');
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Contact form
+    function handleSubmit(event) {
+      event.preventDefault();
+      const form = document.getElementById('contact-form');
+      const success = document.getElementById('form-success');
+
+      const data = {
+        business_name: form.business_name.value,
+        contact_name: form.contact_name.value,
+        contact_line: form.contact_line.value,
+        business_type: form.business_type.value,
+        message: form.message ? form.message.value : '',
+        source: 'landing-page-github-pages',
+        timestamp: new Date().toISOString()
+      };
+
+      // TODO (production): POST to https://weenhive.thisaan.cloud/api/leads
+      // fetch('https://weenhive.thisaan.cloud/api/leads', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data)
+      // });
+
+      console.log('Lead captured:', data);
+
+      form.classList.add('hidden');
+      success.classList.remove('hidden');
+    }
+
+    // Smooth scroll for anchor links + nav close
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          const navHeight = 64;
+          const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

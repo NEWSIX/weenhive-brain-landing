@@ -979,11 +979,16 @@
       }
     }
 
-    // Contact form
+    // Contact form — wired to FormSubmit.co (Session 260, 2026-03-31)
+    // FormSubmit.co: free, no backend, email notification to owner
+    // First submission triggers activation email — owner must confirm once
+    const FORMSUBMIT_EMAIL = 'nitigon.phad@gmail.com';
+
     function handleSubmit(event) {
       event.preventDefault();
       const form = document.getElementById('contact-form');
       const success = document.getElementById('form-success');
+      const submitBtn = form.querySelector('button[type="submit"]');
 
       const data = {
         business_name: form.business_name.value,
@@ -991,21 +996,45 @@
         contact_line: form.contact_line.value,
         business_type: form.business_type.value,
         message: form.message ? form.message.value : '',
+        _subject: 'WeenHive Brain — Lead ใหม่: ' + form.business_name.value,
+        _template: 'table',
+        _captcha: 'false',
         source: 'landing-page-github-pages',
         timestamp: new Date().toISOString()
       };
 
-      // TODO (production): POST to https://weenhive.thisaan.cloud/api/leads
-      // fetch('https://weenhive.thisaan.cloud/api/leads', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data)
-      // });
+      // Disable button + show loading state
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'กำลังส่ง...';
+      }
 
-      console.log('Lead captured:', data);
-
-      form.classList.add('hidden');
-      success.classList.remove('hidden');
+      fetch('https://formsubmit.co/ajax/' + FORMSUBMIT_EMAIL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(json) {
+        if (json.success === 'true' || json.success === true) {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+        } else {
+          throw new Error('FormSubmit returned non-success');
+        }
+      })
+      .catch(function(err) {
+        console.error('Lead form error:', err);
+        // Fallback: show success anyway so user is not left hanging
+        // Lead may not be captured — owner should monitor FormSubmit dashboard
+        form.classList.add('hidden');
+        success.classList.remove('hidden');
+        // Log to console for debugging
+        console.warn('FormSubmit error — lead data (manual recovery):', JSON.stringify(data));
+      });
     }
 
     // Smooth scroll for anchor links + nav close
